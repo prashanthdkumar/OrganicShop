@@ -1,3 +1,4 @@
+import { UserService } from './user.service';
 import { AuthGuard as AuthGuard } from './auth-guard.service';
 import { AuthService } from './auth.service';
 import { RouterModule } from '@angular/router';
@@ -59,7 +60,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   ],
   providers: [
     AuthService,
-    AuthGuard
+    AuthGuard,
+    UserService
   ],
   bootstrap: [AppComponent]
 })
