@@ -1,7 +1,9 @@
-import { Router } from '@angular/router';
+import { Product, ProductClass } from './../../models/product';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ProductService } from './../../product.service';
 import { CategoryService } from './../../category.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
+import 'rxjs/add/operator/take';
 
 @Component({
   selector: 'app-product-form',
@@ -10,12 +12,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductFormComponent implements OnInit {
   categories$;
+  product: Product  = new ProductClass();
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private categoryService: CategoryService,
     private productService: ProductService) {
-    this.categories$ = categoryService.getCategories();
   }
 
   save(product) {
@@ -24,6 +27,11 @@ export class ProductFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  }
+    this.categories$ = this.categoryService.getCategories();
 
+    let id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.productService.get(id).valueChanges().take(1).subscribe((p: any) => this.product = p);
+    }
+  }
 }

@@ -1,3 +1,4 @@
+import { Product } from './../../models/product';
 import { ProductService } from './../../product.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -8,12 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminProductsComponent implements OnInit {
   products$;
+  products;
 
   constructor(private productService: ProductService) {
-    this.products$ = this.productService.getAll();
   }
 
   ngOnInit(): void {
+    this.products$ = this.productService.getAll();
+    this.products$.subscribe(data => {
+      this.products = data;
+      //console.log(this.products);
+    });
   }
 
 }
