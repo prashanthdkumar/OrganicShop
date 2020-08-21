@@ -12,7 +12,9 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { FormsModule } from '@angular/forms';
 import { CustomFormsModule } from 'ng2-validation';
-
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatInputModule } from '@angular/material/input';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,6 +31,7 @@ import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.componen
 import { LoginComponent } from './login/login.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProductFormComponent } from './admin/product-form/product-form.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -50,6 +53,9 @@ import { ProductFormComponent } from './admin/product-form/product-form.componen
     FormsModule,
     CustomFormsModule,
     AppRoutingModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatInputModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
@@ -84,7 +90,8 @@ import { ProductFormComponent } from './admin/product-form/product-form.componen
         canActivate: [AuthGuard, AdminAuthGuard]
       },
     ]),
-    NgbModule
+    NgbModule,
+    BrowserAnimationsModule
   ],
   providers: [
     AuthService,

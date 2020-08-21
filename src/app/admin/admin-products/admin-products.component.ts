@@ -1,7 +1,9 @@
 import { ProductService } from './../../product.service';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Product } from 'src/app/models/product';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-admin-products',
@@ -9,22 +11,41 @@ import { Product } from 'src/app/models/product';
   styleUrls: ['./admin-products.component.css']
 })
 export class AdminProductsComponent implements OnInit, OnDestroy {
-  filteredProducts;
-  products: Product[];
+  filteredProducts = [];
+  products =  [];
   subscription: Subscription;
+  displayedColumns: string[] = ['title', 'price', 'key'];
+  dataSource: MatTableDataSource<Product>;
+
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(private productService: ProductService) {
   }
 
   filter(query: string) {
     this.filteredProducts = (query) ?
-      Object.values(this.products).filter((p: Product) => p.title.toLowerCase().includes(query.toLowerCase())) :
+      this.products.filter((p: Product) => p.title.toLowerCase().includes(query.toLowerCase())) :
       this.products;
+    this.doPagination();
   }
 
   ngOnInit(): void {
     this.subscription =  this.productService.getAll()
-    .subscribe((prod: Product[]) => this.filteredProducts =  this.products = prod);
+    .subscribe((prod: any) => {
+      // tslint:disable-next-line: forin
+      for (const element in prod) {
+        let value = prod[element];
+        value['key'] = element;
+        this.filteredProducts.push(value);
+        this.products.push(value);
+      }
+      this.doPagination();
+    });
+  }
+
+  doPagination() {
+    this.dataSource = new MatTableDataSource<Product>(this.filteredProducts);
+    this.dataSource.paginator = this.paginator;
   }
 
   ngOnDestroy() {
