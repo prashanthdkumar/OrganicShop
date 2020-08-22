@@ -7,20 +7,22 @@
         (keyup)="filter(query.value)"
         type="text" class="form-control" placeholder="Search..." >
 </p>
+
 <div [hidden]="filteredProducts.length > 0">
     No Product Found
 </div>
-<div [hidden]="filteredProducts.length === 0">
-    <mat-table mat-table [dataSource]="dataSource">
+
+<div [hidden]="filteredProducts.length === 0" class="mat-elevation-z8">
+    <mat-table table [dataSource]="dataSource" matSort class="table table-striped">
 
         <ng-container matColumnDef="title">
-            <th mat-header-cell *matHeaderCellDef> Title </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> <h2>Title</h2> </th>
             <td mat-cell *matCellDef="let element"> {{ element.title }} </td>
         </ng-container>
           
         <ng-container matColumnDef="price">
-            <th mat-header-cell *matHeaderCellDef> Price </th>
-            <td mat-cell *matCellDef="let element"> {{ element.price }} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> <h2>Price</h2> </th>
+            <td mat-cell *matCellDef="let element"> {{ element.price | currency:'USD':true  }} </td>
         </ng-container>
           
         <ng-container matColumnDef="key">
