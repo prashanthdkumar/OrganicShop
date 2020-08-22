@@ -9,14 +9,18 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(private UserService: UserService, private auth: AuthService, router: Router) {
+  constructor(private userService: UserService, private auth: AuthService, router: Router) {
     auth.user$.subscribe(user => {
-      if(user) {
-        UserService.save(user);
+      if (!user) { return; }
 
-        let returnUrl = localStorage.getItem('returnUrl');
-        router.navigateByUrl(returnUrl);
-      }
+      userService.save(user);
+
+      const returnUrl = localStorage.getItem('returnUrl');
+
+      if (!returnUrl) { return; }
+
+      localStorage.removeItem('returnUrl');
+      router.navigateByUrl(returnUrl);
     });
   }
 }
