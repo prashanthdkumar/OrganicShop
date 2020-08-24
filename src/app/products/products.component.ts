@@ -1,6 +1,5 @@
 import { Product } from './../models/product';
 import { ActivatedRoute } from '@angular/router';
-import { CategoryService } from './../category.service';
 import { ProductService } from './../product.service';
 import { Component } from '@angular/core';
 
@@ -13,28 +12,23 @@ export class ProductsComponent {
   products$;
   products: Product[] = [];
   filteredProducts: Product[] = [];
-  categories$;
-  categories =  [];
   category: string;
 
   constructor(
     route: ActivatedRoute,
-    productService: ProductService,
-    categoryService: CategoryService) {
-    this.products$ = productService.getAll();
-    this.getProductArray(this.products$);
+    productService: ProductService) {
 
-    this.categories$ = categoryService.getAll();
-    this.getCategoryArray(this.categories$);
+      this.products$ = productService.getAll();
+      this.getProductArray(this.products$);
 
-    route.queryParamMap.subscribe(params => {
-      this.category = params.get('category');
+      route.queryParamMap.subscribe(params => {
+        this.category = params.get('category');
 
-      this.filteredProducts = (this.category) ?
-        this.products.filter((p: Product) => p.category === this.category) :
-      this.products;
-    });
-  }
+        this.filteredProducts = (this.category) ?
+          this.products.filter((p: Product) => p.category === this.category) :
+        this.products;
+      });
+    }
 
   getProductArray(products: any): any[] {
     return products.subscribe((prod: any) => {
@@ -43,18 +37,6 @@ export class ProductsComponent {
         const value = prod[element];
         value['key'] = element;
         this.products.push(value);
-      }
-    });
-  }
-
-  getCategoryArray(categories: any): any[] {
-    return categories.subscribe((cat: any) => {
-      // tslint:disable-next-line: forin
-      for (const element in cat) {
-        const value = cat[element];
-        value['key'] = element;
-        value['_id'] = cat[element].name.toLowerCase();
-        this.categories.push(value);
       }
     });
   }
