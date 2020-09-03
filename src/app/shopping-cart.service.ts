@@ -41,7 +41,6 @@ export class ShoppingCartService {
     this.productService.get(product.key).valueChanges().subscribe(prodData => {
       item$.valueChanges()
       .take(1).subscribe((item: any) => {
-          console.log(item);
           item$.update({ product: prodData, quantity: (item?.quantity || 0) + 1 });
        });
 
