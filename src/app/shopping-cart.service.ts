@@ -42,12 +42,6 @@ export class ShoppingCartService {
       item$.valueChanges()
       .take(1).subscribe((item: any) => {
           console.log(item);
-          // if (item?.$exists()) {
-          //   item$.update({ quantity: item.quantity + 1 });
-          //   item$.update({ product: prodData, quantity: (item.quantity || 0) + 1 });
-          // } else {
-          //   item$.set({ product: prodData, quantity: 1 });
-          // }
           item$.update({ product: prodData, quantity: (item?.quantity || 0) + 1 });
        });
 
