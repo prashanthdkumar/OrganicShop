@@ -41,6 +41,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
       for (const element in prod) {
         const value = prod[element];
         value['key'] = element;
+        value['$key'] = element;
         this.products.push(value);
       }
     });

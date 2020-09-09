@@ -25,6 +25,7 @@ export class ProductFilterComponent implements OnInit {
       for (const element in cat) {
         const value = cat[element];
         value['key'] = element;
+        value['$key'] = element;
         value['_id'] = cat[element].name.toLowerCase();
         this.categories.push(value);
       }

@@ -38,6 +38,7 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
       for (const element in prod) {
         let value = prod[element];
         value['key'] = element;
+        value['$key'] = element;
         this.filteredProducts.push(value);
         this.products.push(value);
       }
