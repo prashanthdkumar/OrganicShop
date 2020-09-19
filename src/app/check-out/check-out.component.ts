@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./check-out.component.css']
 })
 export class CheckOutComponent {
-  shipping = {};
+  shipping: {[key: string]: string} = {};
 
   placeOrder() {
     console.log(this.shipping);
