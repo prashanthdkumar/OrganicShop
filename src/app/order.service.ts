@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
 export class OrderService {
 
   constructor(private db: AngularFireDatabase,
-    private shoppingCartService: ShoppingCartService) { }
+              private shoppingCartService: ShoppingCartService) { }
 
   async placeOrder(order) {
     const result = this.db.list('/orders').push(order);
@@ -16,4 +16,17 @@ export class OrderService {
     return result;
   }
 
+  getOrders() {
+    return this.db.list('/orders').valueChanges();
+  }
+
+  // TODO
+  // getOrdersByUser(userId: string) {
+  //   return this.db.list('/orders', {
+  //     query: {
+  //       orderByChild: 'userId',
+  //       equalTo: userId
+  //     }
+  //   });
+  // }
 }
