@@ -37,6 +37,5 @@ export class MyOrdersComponent implements OnInit{
       this.orders$ = this.orderService.getOrdersByUser(u.uid);
       return this.orders$;
     });
-  }
-  */
+  }*/
 }
