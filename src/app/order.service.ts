@@ -20,9 +20,11 @@ export class OrderService {
     return this.db.list('/orders').valueChanges();
   }
 
+  /* Used nested subscribe approach to filter the order for a given userId
+  This is needed only when we need to use the switchMap method in component
   getOrdersByUser(userId: string) {
-    console.log('order.service getOrdersByUser');
     return this.db.list('/orders', ref => ref.orderByChild('userId').equalTo('userId'))
     .valueChanges();
   }
+  */
 }
