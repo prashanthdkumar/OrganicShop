@@ -16,5 +16,13 @@
     {
       "path": "./e2e/tsconfig.json"
     }
-]
+],
+"compilerOptions": {
+  "baseUrl": "./scr",
+  "paths": {
+    "shared/*": [
+      "app/shared/*"
+    ]
+  }
+}
 }
