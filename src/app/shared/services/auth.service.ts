@@ -1,5 +1,5 @@
 import { UserService } from './user.service';
-import { AppUser } from './models/app-user';
+import { AppUser } from '../models/app-user';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase';
@@ -17,13 +17,13 @@ export class AuthService {
 
   constructor(
     private userService: UserService,
-    private afAuth: AngularFireAuth, 
+    private afAuth: AngularFireAuth,
     private route: ActivatedRoute) {
     this.user$ = afAuth.authState;
    }
 
   login() {
-    let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
+    const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
     localStorage.setItem('returnUrl', returnUrl);
     this.afAuth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
   }
@@ -32,13 +32,13 @@ export class AuthService {
     this.afAuth.signOut();
   }
 
-  get appUser$() : Observable<AppUser> {
+  get appUser$(): Observable<AppUser> {
     return this.user$
       .switchMap(user => {
-        if(user) return this.userService.get(user.uid).valueChanges();
+        if (user) { return this.userService.get(user.uid).valueChanges(); }
 
         return Observable.of(null);
-      })
+      });
   }
 
 }

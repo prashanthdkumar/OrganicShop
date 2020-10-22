@@ -1,6 +1,6 @@
-import { ShoppingCart } from './models/shopping-cart';
+import { ShoppingCart } from '../models/shopping-cart';
 import { ProductService } from './product.service';
-import { Product } from './models/product';
+import { Product } from '../models/product';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/take';
