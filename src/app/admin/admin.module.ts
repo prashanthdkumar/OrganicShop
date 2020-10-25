@@ -1,10 +1,4 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
-import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 
 import { AuthGuard } from '../shared/services/auth-guard.service';
@@ -21,13 +15,7 @@ import { AdminAuthGuard } from './services/admin-auth-guard.service';
     AdminOrdersComponent
   ],
   imports: [
-    CommonModule,
-    FormsModule,
     SharedModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatInputModule,
-    MatSortModule,
     RouterModule.forChild([
       {
         path: 'admin/products/new',
